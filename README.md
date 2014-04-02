@@ -8,6 +8,6 @@ As an extention I decided to use the Swing GUI toolkit to make this into a bette
 
 ##To do List
 ---
-
-- check see if milestone already has xml:id. If it does then do not add it. 
-- 
+- Extract all the 'name' and 'rs' elements and record them with no duplicated. Then assign each one a unique key ad put the key back into the xml attribute. This should also be sent to a file called NameBase.txt
+- Include an appropriate revision line within teiHeader to indicate changes (use swing to change options)
+- Any Additions

@@ -60,7 +60,6 @@ public class node {
 
     public void appMilestone() {
         //edits the attributes to include xml:id (XML Operations task 1)
-    // Need to check weather
         String n = null;
         String ed = null;
         String xmlid;

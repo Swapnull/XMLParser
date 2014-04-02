@@ -40,24 +40,24 @@ public class Gui {
     private static void createMenu(){
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
-        
+    
+    // -------- File Option ----------
         JMenu file = new JMenu("File");
-        menubar.add(file);
         file.setMnemonic(KeyEvent.VK_F);
-        
-        JMenuItem eMenuItem = new JMenuItem("Exit");
-        eMenuItem.setMnemonic(KeyEvent.VK_E);
-        eMenuItem.setToolTipText("Exit Application");
-        eMenuItem.addActionListener(new ActionListener(){
+        menubar.add(file);
+    // -------- File Sub-Options -------- 
+        JMenuItem exit = new JMenuItem("Exit");
+        exit.setMnemonic(KeyEvent.VK_E);
+        exit.setToolTipText("Exit Application");
+        exit.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent event){
                System.exit(0);
            }
         });
+        file.add(exit);
         
-        file.add(eMenuItem);
-        
-        
+   
         menubar.add(file);
         menubar.setSize(300,300);
         menubar.setVisible(true);

@@ -138,7 +138,7 @@ public class XMLParser
                   current.AddAttribute(key, value.toString());
                   }
                   
-                //checks to see if 
+                //checks that xml:id is not already a child to stop wasted calls.
                 boolean attFound = false;
                 for(int i=0; i<current.noOfAttributes;i++){
                     if(current.attributes[i].key.equals("xml:id")){
@@ -147,7 +147,6 @@ public class XMLParser
                 }
                 if(!attFound)
                     current.appMilestone(); //appends the milestones to include xml:id if needed
-                
                 
                 if (val=='/')
                 {
