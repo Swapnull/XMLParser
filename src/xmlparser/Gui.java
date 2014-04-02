@@ -67,7 +67,8 @@ public class Gui {
         userItem.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent event){
-               System.exit(0);
+               //change the dialog pane to allow username changes.
+               JOptionPane.showMessageDialog(frame, "Eggs are not supposed to be green.");
            }
         });
         

@@ -8,6 +8,9 @@ As an extention I decided to use the Swing GUI toolkit to make this into a bette
 
 ##To do List
 ---
+- Change Dialog to allow to change username and then use that data to create change log. http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html#input
+
+*Tasks*
 - Extract all the 'name' and 'rs' elements and record them with no duplicated. Then assign each one a unique key ad put the key back into the xml attribute. This should also be sent to a file called NameBase.txt
 - Include an appropriate revision line within teiHeader to indicate changes (use swing to change options)
 - Any Additions
