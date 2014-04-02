@@ -40,25 +40,39 @@ public class Gui {
     private static void createMenu(){
         JMenuBar menubar = new JMenuBar();
         frame.setJMenuBar(menubar);
-    
-    // -------- File Option ----------
+        
         JMenu file = new JMenu("File");
-        file.setMnemonic(KeyEvent.VK_F);
         menubar.add(file);
-    // -------- File Sub-Options -------- 
-        JMenuItem exit = new JMenuItem("Exit");
-        exit.setMnemonic(KeyEvent.VK_E);
-        exit.setToolTipText("Exit Application");
-        exit.addActionListener(new ActionListener(){
+        file.setMnemonic(KeyEvent.VK_F);
+        
+        JMenuItem fileItem = new JMenuItem("Exit");
+        fileItem.setMnemonic(KeyEvent.VK_E);
+        fileItem.setToolTipText("Exit Application");
+        fileItem.addActionListener(new ActionListener(){
            @Override
            public void actionPerformed(ActionEvent event){
                System.exit(0);
            }
         });
-        file.add(exit);
         
-   
-        menubar.add(file);
+        file.add(fileItem);
+  
+        JMenuItem user = new JMenu("User");
+        menubar.add(user);
+        file.setMnemonic(KeyEvent.VK_U);
+        
+        JMenuItem userItem = new JMenuItem("Username");
+        userItem.setMnemonic(KeyEvent.VK_E);
+        userItem.setToolTipText("Change Username");
+        userItem.addActionListener(new ActionListener(){
+           @Override
+           public void actionPerformed(ActionEvent event){
+               System.exit(0);
+           }
+        });
+        
+        user.add(userItem);
+        
         menubar.setSize(300,300);
         menubar.setVisible(true);
     }
