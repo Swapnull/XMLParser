@@ -138,8 +138,17 @@ public class XMLParser
                   current.AddAttribute(key, value.toString());
                   }
                   
-                //System.out.println(key+"="+value);
-                current.appMilestone(); //appends the milestones to include xml:id if needed
+                //checks to see if 
+                boolean attFound = false;
+                for(int i=0; i<current.noOfAttributes;i++){
+                    if(current.attributes[i].key.equals("xml:id")){
+                        attFound = true;
+                    }
+                }
+                if(!attFound)
+                    current.appMilestone(); //appends the milestones to include xml:id if needed
+                
+                
                 if (val=='/')
                 {
                   //System.out.println("closing tag");

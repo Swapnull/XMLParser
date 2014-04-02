@@ -27,7 +27,7 @@ public class node {
     public int noOfChildren;
     public Object[] children;
     public int noOfAttributes;
-    private keyValue[] attributes;
+    public keyValue[] attributes;
 
     public node(String name, node parent) {
         this.name = name;
@@ -60,6 +60,7 @@ public class node {
 
     public void appMilestone() {
         //edits the attributes to include xml:id (XML Operations task 1)
+    // Need to check weather
         String n = null;
         String ed = null;
         String xmlid;
@@ -68,11 +69,9 @@ public class node {
                 if (attributes[i].key.equals("n")) {
                     n = attributes[i].value;
                 }//end of if
-
                 if (attributes[i].key.equals("ed")) {
                     ed = attributes[i].value;
                 }//end of if
-
                 if ((n != null) && (ed != null)) {
                     xmlid = "BookI-Translation_" + ed + "_" + n;
                     AddAttribute("xml:id", xmlid);

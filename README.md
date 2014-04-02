@@ -5,3 +5,9 @@ This is an XML Parser written in Java for a second year university project. The 
 I was not allowed to use the Java collection classes. 
 
 As an extention I decided to use the Swing GUI toolkit to make this into a better looking application. 
+
+##To do List
+---
+
+- check see if milestone already has xml:id. If it does then do not add it. 
+- 
