@@ -170,7 +170,9 @@ public class XMLParser
       }
       
       gui.field.setText(parseTree.toString());
-      System.out.println(parseTree);
+      System.out.print(parseTree);
+      
+      System.out.println("username: " + gui.getUsername());
       for(int i=0; i<nb.length; i++){
           System.out.println(nb[i].key + " : " + nb[i].value);
       }
