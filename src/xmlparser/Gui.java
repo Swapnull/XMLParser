@@ -3,7 +3,6 @@ package xmlparser;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import jsyntaxpane.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.*;
 
@@ -21,10 +20,9 @@ public class Gui{
     static String username;
     public Gui() {
         
-        DefaultSyntaxKit.initKit(); //get syntax highlighting
         RTextScrollPane scrPane = new RTextScrollPane(field);
         
-        field.setEditable(true);        
+        field.setEditable(true);           
         field.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
         field.setSize(Toolkit.getDefaultToolkit().getScreenSize());
         field.setLineWrap(true);

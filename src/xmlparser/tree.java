@@ -16,11 +16,11 @@ public class tree {
     
     public tree(node head){
         this.head = head;
-        str = new StringBuilder();
     }
    
    @Override
    public String toString(){
+       str = new StringBuilder();
        str.append(head.toString());
        toString(head);
        return str.toString();
