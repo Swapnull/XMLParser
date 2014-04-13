@@ -8,6 +8,7 @@ package xmlparser;
 
 import java.io.*;
 
+<<<<<<< Updated upstream
 public class XMLParser
 {
     
@@ -174,3 +175,16 @@ public class XMLParser
     
   }
 }
+=======
+public class XMLParser {
+
+    public static void main(String args[]) {
+        String filePath = "C:\\github\\XMLParser\\Froissart1.xml";
+        Form form = new Form();
+        Parser parser = new Parser(filePath);
+
+    }
+
+
+}
+>>>>>>> Stashed changes
