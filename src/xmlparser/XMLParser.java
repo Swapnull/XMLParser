@@ -5,174 +5,139 @@
  */
 package xmlparser;
 
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class XMLParser {
 
-    public static void main(String args[]) {
-        String filePath = "C:\\github\\XMLParser\\Froissart1.xml";
-        try {
-            //Gui gui = new Gui();
-            Form form = new Form();
-            FileInputStream in = new FileInputStream(filePath);
-            parse(in);
-            in.close();
-        } catch (IOException e) {
-            System.out.println("IOError: " + e);
-        }
-    }
+    static BuildTree buildTree;
+    static tree parseTree;
+    static String[] namebase;
+    static namebase nambas = new namebase();
+    static boolean insideText = false;
+    static File filePath;
+    static Gui gui = null;
+    static Form form = null;
+    static boolean addedChange =false;
 
-    public static void parse(FileInputStream file) {
+    public static void main(String args[]) throws IOException {
 
-        tree parseTree = null;
-        namebase[] nb = new namebase[0];
+        form = new Form();
 
-        try {
-
-            node current = null;
-            char val = (char) file.read();
-
-            while (val != (char) -1) {
-
-                if (val == '<') {
-
-                    boolean inquotes = false;
-                    String name;
-                    StringBuilder temp = new StringBuilder();
-                    do // read the name of the XML node
-                    {
-                        val = (char) file.read();
-                        if (val == '\"') {
-                            inquotes ^= true;
-                        } else if (inquotes || (val != '>' && val != ' ')) {
-                            temp.append(val);
-                        }
-                    } while (val != (char) -1 && ((val != ' ' && val != '>') || inquotes));
-
-                    name = temp.toString();
-
-                    if (parseTree == null) {
-                        //sets head of tree. this is the 'root node'
-                        current = new node(name, null);
-                        parseTree = new tree(current);
-                    } else {
-                        node newNode = new node(name, current); //creates new node 
-                        current.AddChild(newNode);
-                        current = newNode;
-                    }
-                    String fp = "C:\\Users\\Martyn Rushton\\Dropbox\\ADS2\\namebase.txt";
-                    FileWriter fileWriter = new FileWriter(fp, true);
-                    BufferedWriter bufferFileWriter = new BufferedWriter(fileWriter);
-
-                    if ((current.name.equals("name")) || (current.name.equals("rs"))) {
-                        boolean found = false;
-                        if (nb.length != 0) {
-                            for (int i = 0; i < nb.length; i++) {
-                                if (current.name.equals(nb[i].value)) {//already in list
-                                    found = true;
-                                }//end of if
-                            }//end of for
-                        }
-                        if (found == false) { //not already in list
-                            namebase[] newArray = new namebase[nb.length + 1];
-                            System.arraycopy(nb, 0, newArray, 0, nb.length);
-                            nb = newArray;
-                            nb[(nb.length) - 1] = new namebase(nb.length, current.name);
-                            fileWriter.append(current.name + '\n');
-                            bufferFileWriter.close();
-                        }
-                    }//end of outer if
-                    if (name.endsWith("/")) {
-                        current = current.parent;
-                    } else if (name.charAt(0) == '/') {
-                        current = current.parent.parent;
-                    } else {
-           // System.out.println("Opening tag: "+temp);
-
-                        // the '>' character indicates that all key-value pairs have been read
-                        while (val != (char) -1 && val != '>') // read its properties
-                        {
-                            // key="value"
-                            StringBuilder tmp = new StringBuilder();
-                            do // read in a key
-                            {
-                                val = (char) file.read();
-                                if (val == '\"') {
-                                    inquotes ^= true;
-                                } else if ((val != '=' && val != ' ') || inquotes) {
-                                    tmp.append(val);
-                                }
-                            } while (val != (char) -1 && ((val != '=' && val != ' ' && val != '>') || inquotes));
-
-                            String key = tmp.toString();
-                            if (key.endsWith(">")) {
-                                if (key.endsWith("/>") || key.endsWith("/ >")) {
-                                    // System.out.println("closing tag");
-                                    current = current.parent;
-                                }
-                            } else {
-                                inquotes = false;
-                                StringBuilder value = new StringBuilder();
-                                do {
-                                    val = (char) file.read();
-                                    if (val == '\"') {
-                                        inquotes ^= true;
-                                    } else if (val != '>' && val != '/') {
-                                        value.append(val);
-                                    }
-                                } while (val != (char) -1 && ((val != '>' && val != '/' && val != ' ') || inquotes));
-
-                                current.AddAttribute(key, value.toString());
-                            }
-
-                            //checks that xml:id is not already a child to stop wasted calls.
-                            boolean attFound = false;
-                            for (int i = 0; i <= current.noOfAttributes; i++) {
-                                if (current.attributes[i].key.equals("xml:id")) {
-                                    attFound = true;
-                                }
-                            }
-                            if (!attFound) {
-                                current.appMilestone(); //appends the milestones to include xml:id if needed
-                            }
-                            if (val == '/') {
-                                //System.out.println("closing tag");
-                                current = current.parent;
-                                val = (char) file.read();
-                            }
-                        }
-                    }
-
-          //System.out.println("nodeName : <" + (newNode.name) + ">" + "   Parent : <" +(newNode.parent) + ">");
-                    //System.out.println(current.name);
-                } else {
-                    //System.out.println("Normal character: "+val);
-                    if (current != null) {
-                        current.AddChild(Character.toString(val)); //adds plain text
-                    }
+//the below is gui stuff
+        //just parse
+        form.parseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    setup();
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                val = (char) file.read();
             }
-            
-           //gui.field.setText(parseTree.toString());
-            String res=parseTree.toString();
-            System.out.print(res);
+        });
+        //parse and view
+        form.parseAndOpenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gui = new Gui();
+                try {
 
-            File filepth = new File("C:\\github\\XMLParser\\new.xml");
-            filepth.delete();
-            FileWriter fileWriter = new FileWriter(filepth);
-            BufferedWriter bw = new BufferedWriter(fileWriter);
-            bw.write(res);
-            bw.close();
-
-           // System.out.println("username: " + gui.getUsername());
-            for (int i = 0; i < nb.length; i++) {
-                System.out.println(nb[i].key + " : " + nb[i].value);
+                    setup();
+                } catch (IOException ex) {
+                    Logger.getLogger(XMLParser.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        });
+    }
 
-        } catch (IOException e) {
-            System.out.println("XMLParser.parse() - " + e);
+    public static void setup() throws IOException {
+        filePath = form.file_name;
+        String username = form.username_input.getText();
+        form.closeFrame();
+        System.out.println(filePath);
+        System.out.println(username);
+        buildTree = new BuildTree(filePath, username); // this stores the file in memory
+        parseTree = buildTree.parseTree;
+        node current = parseTree.head;
+
+        nambas.readNamebase();
+        walkTree(current);
+        nambas.writeNamebase();
+        buildTree.writeToFile();
+
+        System.out.println(parseTree);
+
+        if (gui != null) {
+            gui.field.setText(parseTree.toString());
         }
 
     }
+
+    public static void walkTree(node current) throws IOException {
+        boolean inNamebase = false;
+        //check to make sure between <text> and </text>
+        if (current.name.equals("text")) {
+            insideText = true;
+        } else if (current.name.equals("/text")) {
+            insideText = false;
+        }
+
+        if ((current.name.equals("change") && (!addedChange))) {
+            ChangeLog log = new ChangeLog(form.username_input.getText());
+            node change = new node("change", current.parent);
+            log.formatLog(change);
+            current.parent.AddChildToStart(change);
+            addedChange = true;
+        }
+
+        if (insideText) {
+            switch (current.name) {
+                case "milestone":
+                    addXMLID(current);
+                    break;
+                case "name":
+                case "rs":
+                    nambas.checkAndAddToNamebase(current);
+                    break;
+            }
+        }
+        for (int i = 0; i < current.noOfChildren; i++) {
+            Object child = current.children[i];
+            if (child.getClass() == node.class) {
+                walkTree((node) child);
+            }
+        }
+
+    }
+
+    public static void addXMLID(node current) {
+        boolean found = false;
+        String xmlid, n = null, ed = null;
+        int i = 0;
+        while (!found && (i < current.noOfAttributes)) {
+            switch (current.attributes[i].key) {
+                case "xml:id":
+                    found = true;
+                    //System.out.println("found xml:id");
+                    break;
+                case "n":
+                    n = current.attributes[i].value;
+                    break;
+                case "ed":
+                    ed = current.attributes[i].value;
+                    break;
+            }
+            i++;
+        }
+        if (!found && n != null && ed != null) {
+            xmlid = "BookI-Translation_" + ed + "_" + n;
+            current.AddAttribute("xml:id", xmlid);
+        }
+    }
+
 }

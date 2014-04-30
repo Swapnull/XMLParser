@@ -39,7 +39,7 @@ public class node {
     }
 
     public void AddAttribute(String key, String value) {
-        if (noOfAttributes >= attributes.length) {
+        if (noOfAttributes == attributes.length) {
             keyValue[] newArray = new keyValue[attributes.length + 1];
             System.arraycopy(attributes, 0, newArray, 0, attributes.length);
             attributes = newArray;
@@ -49,7 +49,7 @@ public class node {
     }
 
     public void AddChild(Object child) {
-        if (noOfChildren >= children.length) {
+        if (noOfChildren == children.length) {
             Object[] newArray = new Object[children.length + 1];
             System.arraycopy(children, 0, newArray, 0, children.length);
             children = newArray;
@@ -57,29 +57,15 @@ public class node {
         children[noOfChildren] = child;
         noOfChildren++;
     }// end of AddChild
-
-    public void appMilestone() {
-        //edits the attributes to include xml:id (XML Operations task 1)
-        String n = null;
-        String ed = null;
-        String xmlid;
-        for (int i = 0; i < noOfAttributes; i++) {
-            if (name.equals("milestone")) {
-                if (attributes[i].key.equals("n")) {
-                    n = attributes[i].value;
-                }//end of if
-                if (attributes[i].key.equals("ed")) {
-                    ed = attributes[i].value;
-                }//end of if
-                if ((n != null) && (ed != null)) {
-                    xmlid = "BookI-Translation_" + ed + "_" + n;
-                    AddAttribute("xml:id", xmlid);
-                    break;
-                }// end of if
-            }//end of milestone if
-        } // end of for
-    }//end of appMilestone
     
+    public void AddChildToStart(Object child){
+        Object[] newArray = new Object[children.length + 1];
+        newArray[0] = child;
+        System.arraycopy(children, 0, newArray, 1, children.length);
+        children = newArray;
+        
+        noOfChildren++;
+    }
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

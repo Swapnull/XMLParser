@@ -4,9 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/github/XMLParser/src/xmlparser/node.java</file>
-            <file>file:/C:/github/XMLParser/src/xmlparser/Gui.java</file>
             <file>file:/C:/github/XMLParser/src/xmlparser/Form.java</file>
             <file>file:/C:/github/XMLParser/src/xmlparser/XMLParser.java</file>
+            <file>file:/C:/github/XMLParser/src/xmlparser/ChangeLog.java</file>
+            <file>file:/C:/github/XMLParser/src/xmlparser/namebase.java</file>
+            <file>file:/C:/github/XMLParser/src/xmlparser/BuildTree.java</file>
             <file>file:/C:/github/XMLParser/src/xmlparser/tree.java</file>
         </group>
     </open-files>

@@ -1,16 +1,11 @@
-#XML Parser
+#XMLParser
 
-This is an XML Parser written in Java for a second year university project. The task was to create an XML Parser that would read in an XML file, store it in memory and then print it out with the same formatting as it went in with. 
+##What is it?
+An XML parser is a program that will take your xml file and then add some of the standard xml features such as the xml:id attribute to milestones and keys to names. These features make searching through your xml files quicker and easier. 
+A namebase is also stored from items inside your '<name>' and '<rs>' tags. The more files you parse, the more this file evovles. The more evolved this file is, the quicker future parses will be. 
 
-I was not allowed to use the Java collection classes. 
-
-As an extention I decided to use the Swing GUI toolkit to make this into a better looking application. 
-
-##To do List
----
-- Change Dialog to allow to change username and then use that data to create change log. http://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html#input
-
-*Tasks*
-- Extract all the 'name' and 'rs' elements and record them with no duplicated. Then assign each one a unique key ad put the key back into the xml attribute. This should also be sent to a file called NameBase.txt
-- Include an appropriate revision line within teiHeader to indicate changes (use swing to change options)
-- Any Additions
+##What does it do?
+- An 'XML:ID' attribute is added to your '<milestone>' tags.
+- A 'key' attribute is added to all '<name>' and '<rs>' tags. This is unique to the data inside the tag. For instance '<name>John Smith</name>' will be assigned a key, say 5, and every occurance of it will change to '<name key="5">John Smith </name>'
+- A change log is added inside '<revisionDesc>' that gives the date that the file was last parsed and who parsed it. 
+- 
